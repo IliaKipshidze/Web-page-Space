@@ -473,7 +473,7 @@ header .menu ul li:not(:last-child){
     color: white;
     resize: none;
 }
-.commentbtn{
+.commentbtn, .accessUpdate{
     width: 9%;
     height: 35px;
     font-size: 1rem;
@@ -486,6 +486,11 @@ header .menu ul li:not(:last-child){
     border: none;
     cursor: pointer;
     min-width: 120px;
+}
+.accessUpdate{
+    display: inline-block;
+    text-align: center;
+    line-height: 35px;
 }
 #WriteAllInFile{
     width: 20%;
@@ -506,6 +511,10 @@ p.avtorizationForComments a{
 .userComments form{
     margin: 0 3%;
 }
+.commentbtnSave{
+    display: none;
+}
+
 
 /* რეგისტრაცია და ავტორიზაცია */
 
@@ -639,7 +648,6 @@ label#showPassLabel, label#showPassLabel1{
 #showPassword{
     margin-left: 3px;
 }
-
 
 
 /* screen and media */

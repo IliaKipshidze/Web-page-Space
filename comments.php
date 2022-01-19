@@ -20,10 +20,11 @@
         if($_COOKIE['status'] != "admin"){
                 while($row = mysqli_fetch_assoc($result)){
 ?>
-                <form method = "post" action = "contact.php" id="<?php echo $row['id'].'form'; ?>">
-                        <textarea rows="8" cols="60" class="commenttxt" name="commenttxt" ><?php echo $row['comment']; ?></textarea><br>
-                        <input type="submit" class="commentbtn" id="<?php echo $row['id'].'update'; ?>" name="update" value="შენახვა">
-                        <input type="submit" class="commentbtn" id="<?php echo $row['id'].'delete'; ?>" name="delete" value="წაშლა">
+                <form method = "post" action = "contact.php" id="<?php echo 'form_'.$row['id']; ?>">
+                        <textarea rows="8" cols="60" class="commenttxt" id="<?php echo $row['id'].'textarea'; ?>" name="commenttxt" disabled><?php echo $row['comment']; ?></textarea><br>
+                        <label for="<?php echo $row['id'].'textarea'; ?>" class="accessUpdate" id="<?php echo 'accessUpdate_'.$row['id']; ?>">განახლება</label>
+                        <input type="submit" class="commentbtn commentbtnSave" id="<?php echo $row['id'].'update'; ?>" name="update" value="შენახვა">
+                        <input type="submit" class="commentbtn" name="delete" value="წაშლა">
                         <input style="display:none;" type="text" name="comId" value="<?php echo $row['id']; ?>">
                         <input id="javascriptIndex" class="javascriptIndex" name="javascriptIndex" style="display:none;" type="text" value="<?php echo $javascriptIndex; ?>">
                 </form>

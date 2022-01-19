@@ -35,8 +35,6 @@ function f2() {
 
 let formIndex = parseInt(document.getElementById("javascriptIndex").value);
 let maxIndex = parseInt(document.getElementById("numOfRecords").value);
-console.log(formIndex);
-console.log(maxIndex);
 
 var forms = document.querySelectorAll("div.userComments form");
 forms[formIndex].style.display = "initial";
@@ -45,6 +43,14 @@ let rightArrowDiv = document.getElementsByClassName("rightArrow")[0];
 let leftArrowDiv = document.getElementsByClassName("leftArrow")[0];
 
 rightArrowDiv.addEventListener("click", function(){
+    var formId = forms[formIndex].id;
+    var idNum = formId.substring(formId.indexOf('_')+1);
+    var savebtnId = "accessUpdate_".concat(idNum);
+    var el = document.getElementById(savebtnId);
+    if(el.innerHTML=="გაუქმება"){
+        el.click();
+    }
+
     forms[formIndex].style.display = "none";
     if(formIndex == maxIndex) formIndex = 0;
     else formIndex = formIndex + 1;
@@ -52,6 +58,14 @@ rightArrowDiv.addEventListener("click", function(){
 });
 
 leftArrowDiv.addEventListener("click", function(){
+    var formId = forms[formIndex].id;
+    var idNum = formId.substring(formId.indexOf('_')+1);
+    var savebtnId = "accessUpdate_".concat(idNum);
+    var el = document.getElementById(savebtnId);
+    if(el.innerHTML=="გაუქმება"){
+        el.click();
+    }
+
     forms[formIndex].style.display = "none";
     if(formIndex == 0) formIndex = maxIndex;
     else formIndex = formIndex - 1;
@@ -69,3 +83,28 @@ for(let i = 0; i < btns.length; i++) {
   })
 }
 
+var updateBtns = document.getElementsByClassName('accessUpdate');
+let TextBeforeUpdate;
+
+for(let i = 0; i < updateBtns.length; i++) {
+    updateBtns[i].addEventListener("click", function() {
+        var btnId = updateBtns[i].id;
+        var idNum = btnId.substring(btnId.indexOf('_')+1);
+        var txtAreaId = idNum.concat("textarea");
+        var saveBtnId = idNum.concat("update");
+        if(updateBtns[i].innerHTML == "განახლება"){
+            TextBeforeUpdate = document.getElementById(txtAreaId).value;
+            document.getElementById(txtAreaId).disabled = false;
+            document.getElementById(saveBtnId).style.display="initial";
+            updateBtns[i].innerHTML = "გაუქმება";
+        }
+        else{
+            if(document.getElementById(txtAreaId).value!=TextBeforeUpdate){
+                document.getElementById(txtAreaId).value = TextBeforeUpdate;
+            }
+            document.getElementById(txtAreaId).disabled = true;
+            document.getElementById(saveBtnId).style.display="none";
+            updateBtns[i].innerHTML = "განახლება";
+        }
+    })
+}
