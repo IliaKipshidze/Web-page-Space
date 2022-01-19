@@ -47,8 +47,10 @@ rightArrowDiv.addEventListener("click", function(){
     var idNum = formId.substring(formId.indexOf('_')+1);
     var savebtnId = "accessUpdate_".concat(idNum);
     var el = document.getElementById(savebtnId);
-    if(el.innerHTML=="გაუქმება"){
-        el.click();
+    if(el!=null){
+        if(el.innerHTML=="გაუქმება"){
+            el.click();
+        }
     }
 
     forms[formIndex].style.display = "none";
@@ -62,8 +64,10 @@ leftArrowDiv.addEventListener("click", function(){
     var idNum = formId.substring(formId.indexOf('_')+1);
     var savebtnId = "accessUpdate_".concat(idNum);
     var el = document.getElementById(savebtnId);
-    if(el.innerHTML=="გაუქმება"){
-        el.click();
+    if(el!=null){
+        if(el.innerHTML=="გაუქმება"){
+            el.click();
+        }
     }
 
     forms[formIndex].style.display = "none";

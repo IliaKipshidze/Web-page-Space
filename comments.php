@@ -34,14 +34,15 @@
         else{
                 while($row = mysqli_fetch_assoc($result)){
 ?>
-                <form method = "post" action = "contact.php" id="<?php echo $row['id'].'form'; ?>">
+                <form method = "post" action = "contact.php" id="<?php echo 'form_'.$row['id']; ?>">
                         <h3 id="senderName"><?php echo $row['name']; ?></h3>
-                        <textarea rows="8" cols="60" class="commenttxt" name="commenttxt" <?php if($_COOKIE['user_fname']." ".$_COOKIE['user_lname'] != $row['name']){ ?> disabled <?php } ?> ><?php echo $row['comment']; ?></textarea><br>
+                        <textarea rows="8" cols="60" class="commenttxt" id="<?php echo $row['id'].'textarea'; ?>" name="commenttxt" disabled><?php echo $row['comment']; ?></textarea><br>
                         <?php
                                 if($_COOKIE['user_fname']." ".$_COOKIE['user_lname'] == $row['name']){
                         ?>
-                                <input type="submit" class="commentbtn" id="<?php echo $row['id'].'update'; ?>" name="update" value="შენახვა">
-                                <input type="submit" class="commentbtn" id="<?php echo $row['id'].'delete'; ?>" name="delete" value="წაშლა">
+                                <label for="<?php echo $row['id'].'textarea'; ?>" class="accessUpdate" id="<?php echo 'accessUpdate_'.$row['id']; ?>">განახლება</label>
+                                <input type="submit" class="commentbtn commentbtnSave" id="<?php echo $row['id'].'update'; ?>" name="update" value="შენახვა">
+                                <input type="submit" class="commentbtn" name="delete" value="წაშლა">
                         <?php
                               }
                         ?>
