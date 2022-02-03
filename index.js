@@ -6,6 +6,10 @@ function setActiveMenuListColor(){
     }
 }
 
+document.getElementsByClassName("prof_div")[0].addEventListener("click", function(){
+    window.location.href = "profilePage.php";
+})
+
 function passCheck(){
     let passInp = document.getElementById("user_password_reg").value;
     let divForPass = document.getElementById("passSymbols");

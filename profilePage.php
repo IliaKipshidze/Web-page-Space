@@ -140,6 +140,9 @@
     <title>პროფილი</title>
 </head>
 <body id="profilePageBody">
+    <div>
+        <a class="backToMainPageFromProfilePage" href="index.php">მთავარ გვერდზე დაბრუნება</a>
+    </div>
     <div class = "userProfilePage">
         <div class="profilePictureOnProfilePage" id ="profilePictureOnProfilePage">
             <img src="<?php echo "profile pictures/".$_COOKIE['prof_pic'] ?>" alt=""><br>

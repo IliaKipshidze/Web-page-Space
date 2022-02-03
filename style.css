@@ -114,11 +114,12 @@ header .menu ul li:not(:last-child){
     border-style: solid;
     padding: 4px;
 }
-.prof_div{
+div.prof_div{
     display: flex;
     width: 50%;
     align-items: center;
     margin-left: 5px;
+    cursor: pointer;
 }
 
 @keyframes growDown {
@@ -658,6 +659,7 @@ label#showPassLabel, label#showPassLabel1{
 /* პროფილის გვერდი */
 body#profilePageBody{
     background-color: rgba(139, 16, 24);
+    padding-top: 40px;
 }
 .userProfilePage{
     display: flex;
@@ -729,6 +731,15 @@ body#profilePageBody{
 }
 #changedProfilePicture{
     display: block;
+}
+a.backToMainPageFromProfilePage{
+    color: white;
+    background-color: #35CABF;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 1.3rem;
+    margin-top: 40px;
+    margin-left: 20px;
 }
 
 
