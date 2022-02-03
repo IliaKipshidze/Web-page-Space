@@ -411,7 +411,7 @@ header .menu ul li:not(:last-child){
 .contact_main textarea{
     width: 100%;
 }
-.contact_main .addComment #addCommentSubmit{
+.contact_main .addComment #addCommentSubmit, .userProfilePage button{
     width: 7%;
     height: 35px;
     font-size: 1rem;
@@ -517,7 +517,6 @@ p.avtorizationForComments a{
 
 
 /* რეგისტრაცია და ავტორიზაცია */
-
 body .signInDiv, body .signUpDiv{
     background-color: rgba(139, 16, 24);
     height: 100vh;
@@ -532,12 +531,12 @@ body .signInForm, body .signUpForm{
     border-radius: 10px;
     box-shadow: 0px 0px 100px 20px #4156BE;
 }
-.signInForm label, .signUpForm label{
+.signInForm label, .signUpForm label, .bioOnProfilePage{
     color: white;
     font-size: 1.5rem;
 }
 .signInForm #user_email, .signInForm #user_password, .signUpForm #user_email_reg, .signUpForm #user_password_reg, .signUpForm #user_name, 
-.signUpForm #user_surname {
+.signUpForm #user_surname{
     border-radius: 5px;
     line-height: 2;
     font-size: 1.8rem;
@@ -610,7 +609,7 @@ body .signInForm, body .signUpForm{
     font-family: "ALK Life", sans-serif;
     font-weight: normal;
 }
-.error{
+.error, .errorsForProfilePage{
     color: white;
     background-color: rgb(114, 0, 8);
     line-height: 1;
@@ -621,7 +620,14 @@ body .signInForm, body .signUpForm{
     border-radius: 5px;
     padding: 5px 10px;
 }
-p.error_p{
+.errorsForProfilePage{
+    line-height: 0.8;
+    font-size: 0.8rem;
+    width: 60%;
+    padding: 2px 5px;
+    margin-bottom: 5px;
+}
+p.error_p, p.errorsForProfilePage_p{
     margin: 8px 0;
 }
 body.success div{
@@ -649,8 +655,108 @@ label#showPassLabel, label#showPassLabel1{
     margin-left: 3px;
 }
 
+/* პროფილის გვერდი */
+body#profilePageBody{
+    background-color: rgba(139, 16, 24);
+}
+.userProfilePage{
+    display: flex;
+    flex-wrap: nowrap;
+    padding: 8vh 10%;
+    justify-content: space-between;
+}
+.userProfilePage input[type="submit"]{
+    width: 15%;
+    height: 35px;
+    font-size: 1rem;
+    color: white;
+    background-color: rgb(175, 41, 50);
+    box-shadow: 0px 0px 10px 3px #4156BE;
+    border-radius: 10px;
+    margin: 0px 2%;
+    border: none;
+    cursor: pointer;
+    min-width: 90px;
+    display: none;
+}
+.userProfilePage .updaterLabel, #changeProfilePictureOnProfilePage{
+    width: 9%;
+    height: 35px;
+    font-size: 1rem;
+    color: white;
+    background-color: rgb(175, 41, 50);
+    box-shadow: 0px 0px 10px 3px #4156BE;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    min-width: 120px;
+    display: inline-block;
+    text-align: center;
+    line-height: 35px;
+}
+#nameOnProfilePage,  #surnameOnProfilePage, #gmailOnProfilePage, #passwordOnProfilePage, #oldPasswordOnProfilePage{
+    border-radius: 5px;
+    line-height: 2;
+    font-size: 1.8rem;
+    padding: 0px 10px;
+    margin: 10px 0;
+    width: 60%;
+    border: none;
+    background-color: rgb(85, 8, 13);
+    color: white;
+}
+#changeProfilePictureOnProfilePage{
+    width: 40%;
+    min-width: 150px;
+}
+.profilePictureOnProfilePage{
+    width: 30%;
+}
+.profilePictureOnProfilePage img{
+    width: 90%;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+}
+.bioOnProfilePage{
+    width: 60%;
+}
+.bioOnProfilePage label.updaterLabel, #changeProfilePictureOnProfilePage{
+    margin: 5px 10px;
+    margin-bottom: 30px;
+}
+#changeProfilePictureOnProfilePage{
+    margin-right: 0;
+}
+#changedProfilePicture{
+    display: block;
+}
+
 
 /* screen and media */
+@media only screen and (max-width:1222px){
+
+    /* პროფილის გვერდი */
+
+    .userProfilePage{
+        flex-direction: column;
+    }
+    .profilePictureOnProfilePage{
+        width: 100%;
+    }
+    .bioOnProfilePage{
+        width: 100%;
+    }
+    .bioOnProfilePage input[type="text"]{
+        width: 100%;
+    }
+    #nameOnProfilePage,  #surnameOnProfilePage, #gmailOnProfilePage, #passwordOnProfilePage, #oldPasswordOnProfilePage{
+        width: 90%;
+    }
+    #submitProfilePictureOnProfilePage{
+        margin-bottom: 20px;
+        margin-left: 10px;
+    }
+}
 
 @media only screen and (max-width:1160px){
     header{
