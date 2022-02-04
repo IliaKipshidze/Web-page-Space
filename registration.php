@@ -44,9 +44,7 @@ $errors = array();
         }
         if(count($errors) == 0){
             $imgloc="";
-                $explodedEmail = explode(".", $email);
-                $implodedEmail = implode("@", $explodedEmail);
-                $implodedEmail = md5($implodedEmail);
+                $implodedEmail = md5($email);
 	            $image=$_FILES['profilePic'];
                 $ext = explode(".", $image['name']);
                 $realExt = strtolower(end($ext));

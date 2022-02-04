@@ -22,6 +22,7 @@
     $nm = $_COOKIE['user_fname'];
     $srnm = $_COOKIE['user_lname'];
     $gml = $_COOKIE['user_email'];
+    $imglc = $_COOKIE['prof_pic'];
 
     if(isset($_POST['submitNameOnProfilePage'])){
         if($_POST['nameOnProfilePage'] == "") {
@@ -32,6 +33,10 @@
             $name = stripcslashes($_POST["nameOnProfilePage"]);
             $name = mysqli_real_escape_string($db, $name);
             $sql = "UPDATE userregistration SET fname='".$name."' WHERE email='".$_COOKIE['user_email']."'";
+            mysqli_query($db, $sql);
+
+            $fullName = $name.' '.$srnm;
+            $sql = "UPDATE usercomments SET name='".$fullName."' WHERE sender='".$_COOKIE['user_email']."'";
             mysqli_query($db, $sql);
 
             setcookie('user_email', $_COOKIE['user_email'], time()+15*60);
@@ -53,6 +58,10 @@
             $userName = stripcslashes($_POST["surnameOnProfilePage"]);
             $userName = mysqli_real_escape_string($db, $userName);
             $sql = "UPDATE userregistration SET lname='".$userName."' WHERE email='".$_COOKIE['user_email']."'";
+            mysqli_query($db, $sql);
+
+            $fullName = $nm.' '.$userName;
+            $sql = "UPDATE usercomments SET name='".$fullName."' WHERE sender='".$_COOKIE['user_email']."'";
             mysqli_query($db, $sql);
 
             setcookie('user_email', $_COOKIE['user_email'], time()+15*60);
@@ -84,14 +93,60 @@
                 $sql = "UPDATE userregistration SET email='".$email."' WHERE email='".$_COOKIE['user_email']."'";
                 mysqli_query($db, $sql);
 
+                $sql = "UPDATE usercomments SET sender='".$email."' WHERE sender='".$_COOKIE['user_email']."'";
+                mysqli_query($db, $sql);
+
+                $newImgLoc = "userIcon.png";
+
+                if($_COOKIE['prof_pic']!="userIcon.png"){
+                    $newImgLoc = md5($email);
+                    
+                    $sql = "SELECT * FROM userregistration WHERE email = '$email'";
+                    $result = mysqli_query($db, $sql);
+                    $row = mysqli_fetch_assoc($result);
+
+                    $oldImgName = $row["imgloc"];
+
+                    $imgExt = explode('.', $oldImgName)[1];
+                    $newImgLoc = $newImgLoc.'.'.$imgExt;
+
+                    $sql = "UPDATE userregistration SET imgloc='".$newImgLoc."' WHERE email='".$email."'";
+                    mysqli_query($db, $sql);
+
+                    $nameFrom = 'profile pictures/'.$oldImgName;
+                    $nameTo = 'profile pictures/'.$newImgLoc;
+
+                    rename($nameFrom, $nameTo);
+                }
+
+                if($_COOKIE['status'] == "admin"){
+
+                    $statusData = file("status.txt");
+                    
+                    for($i = 0;$i<count($statusData);$i++){
+                        if(trim($statusData[$i])==$_COOKIE['user_email']){
+                            unset($statusData[$i]);
+                            break;
+                        }
+                    }
+                    
+                    $stsTxt = fopen("status.txt", "w");
+                    for($i = 0;$i<count($statusData);$i++){
+                        fwrite($stsTxt, $statusData[$i]);
+                    }
+                    fwrite($stsTxt, $email);
+                    fclose($stsTxt);
+                }
+
                 setcookie('user_email', $email, time()+15*60);
                 setcookie('user_pass', $_COOKIE['user_pass'], time()+15*60);
                 setcookie('user_fname', $_COOKIE['user_fname'], time()+15*60);
                 setcookie('user_lname', $_COOKIE['user_lname'], time()+15*60);
-                setcookie('prof_pic', $_COOKIE['prof_pic'], time()+15*60);
+                setcookie('prof_pic', $newImgLoc, time()+15*60);
                 setcookie('status', $_COOKIE['status'], time()+15*60);
 
                 $gml = $email;
+                $imglc = $newImgLoc;
             }
         }
     }
@@ -126,6 +181,28 @@
             }
         }
     }
+    if(isset($_POST['submitProfilePictureOnProfilePage'])){
+
+        $implodedEmail = md5($gml);
+        $image=$_FILES['changedProfilePicture'];
+        $ext = explode(".", $image['name']);
+        $realExt = strtolower(end($ext));
+        if(count($ext)!=1){
+            move_uploaded_file($image['tmp_name'],"profile pictures/".$implodedEmail.".".$realExt);
+            $imgloc = $implodedEmail.".".$realExt;
+            if($imglc != $imgloc){
+                $sql = "UPDATE userregistration SET imgloc='".$imgloc."' WHERE email='".$gml."'";
+                mysqli_query($db, $sql);
+                $imglc = $imgloc;
+            }
+        }
+        setcookie('user_email', $_COOKIE['user_email'], time()+15*60);
+        setcookie('user_pass', $_COOKIE['user_pass'], time()+15*60);
+        setcookie('user_fname', $_COOKIE['user_fname'], time()+15*60);
+        setcookie('user_lname', $_COOKIE['user_lname'], time()+15*60);
+        setcookie('prof_pic', $imglc, time()+15*60);
+        setcookie('status', $_COOKIE['status'], time()+15*60);
+    }
 
 ?>
 
@@ -145,7 +222,7 @@
     </div>
     <div class = "userProfilePage">
         <div class="profilePictureOnProfilePage" id ="profilePictureOnProfilePage">
-            <img src="<?php echo "profile pictures/".$_COOKIE['prof_pic'] ?>" alt=""><br>
+            <img src="<?php echo "profile pictures/".$imglc ?>" alt=""><br>
             <form id="profilePictureOnProfilePageForm" method = "post" action="profilePage.php" enctype="multipart/form-data">
                 <label class="changeProfilePictureOnProfilePage" id="changeProfilePictureOnProfilePage">ფოტოს შეცვლა</label>
                 <input type="submit" id = "submitProfilePictureOnProfilePage" name="submitProfilePictureOnProfilePage" value="შენახვა"><br>
